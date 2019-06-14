@@ -1,70 +1,74 @@
 <template>
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <button class="btn btn-success btn-lg btn-block" @click="aumentar">Aumentar</button>
-      <button class="btn btn-danger btn-lg btn-block" @click="aumentar2">Aumentar 2</button>
-      <button class="btn btn-warning btn-lg btn-block" @click="diminuir">Diminuir</button>
-      <hr>
-      <button class="btn" :class="[classCSS, {girar: aplicarGirar}]" @click="aplicarC1 = !aplicarC1">CLASS</button>
-      <input type="text" v-model="classCSS">
-      <hr>
-      <div class="alert alert-warning" role="alert">Contador: <strong>{{ contador }} | {{ contador2 }}</strong></div>
-      <div class="alert alert-success" role="alert">Resultado: <strong>{{ resultado }}</strong></div>
-    </div>
+  <div class="container">
+    <form class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
+        <template v-if="logado">
+          <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+        </template>
+        <p v-if="logado">Usuário Logado: {{ nome }}</p>
+        <p v-else-if="anonimo">Navegando como Animo</p>
+        <p v-else>Nenhum usuário logado</p>
+        <button class="btn btn-danger" type="button" @click="logado = !logado">{{ logado ? 'Sair' : 'Entrar' }}</button>
+        <hr>
+        <input type="checkbox" v-model="anonimo">
+        <footer v-show="logado">
+          Desenvolvido pra vc!!
+        </footer>
+        <footer v-show="!logado">
+          Desenvolvido pra vc anonimo!!
+        </footer>
+      </div>
+
+      <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Email address</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Password</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
+    </form>
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
-  data () {
+  data() {
     return {
-      contador: 0,
-      contador2: 0,
-      aplicarC1: false,
-      classCSS: 'btn-primary btn-lg btn-block',
-      aplicarGirar: false
-    }
-  },
-  computed: {
-    resultado  () {
-      console.log('metodo computed resultado chamado...')
-      return this.contador >= 5 ? 'Maior ou igual a 5' : 'Menor que 5'
-    },
-    estilo1() {
-      return {
-        'btn-primary btn-lg btn-block': this.aplicarC1,
-        'btn-warning btn-lg btn-block': !this.aplicarC1
-      }
-    }
-  },
-  methods: {
-    aumentar() {
-      this.contador++
-    },
-    aumentar2() {
-      this.contador2++
-    },
-    diminuir() {
-      this.contador--
-    }
-  },
-  watch: {
-    contador (novo, antigo) {
-      console.log(novo, antigo)
-      setTimeout(() => {
-        this.contador = 0
-      }, 2000)
+      nome: 'Maria',
+      logado: false,
+      anonimo: false
     }
   }
 }
 </script>
 
 <style>
-  .c1 {
-    width: 100%;
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
-  .girar {
-    transform: rotate(45deg);
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
   }
 </style>
